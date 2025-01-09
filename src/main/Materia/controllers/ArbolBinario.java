@@ -1,4 +1,4 @@
-package main.Materia.controllers;
+package main.Materia.Controllers;
 
 import main.Materia.Models.Node;
 
