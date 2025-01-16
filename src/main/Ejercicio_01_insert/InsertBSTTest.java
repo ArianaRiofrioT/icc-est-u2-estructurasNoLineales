@@ -1,44 +1,67 @@
 package main.Ejercicio_01_insert;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import main.Materia.Models.Node;
+
 public class InsertBSTTest {
+    public Node insert(Node root, int value) {
 
-    private TreeNode root;
+        if (root == null) {
+            root = new Node(value);
+        } else {
+            if (value < root.getValue()) {
+                root.setLeft(insert(root.getLeft(), value));
+            } else if (value > root.getValue()) {
+                root.setRight(insert(root.getRight(), value));
+            }
+        }
+        return root;
+    }
 
-    public static class TreeNode {
-        public int value; // Cambiado a public
-        public TreeNode left, right;
+    public void printTreeAligned(Node root) {
+        if (root == null) {
+            System.out.println("Árbol vacío.");
+            return;
+        }
+        
+        Queue<Node> nodes = new LinkedList<>();
+        nodes.add(root);
+        int height = getTreeHeight(root);
+        int currentLevel = 0;
 
-        public TreeNode(int value) {
-            this.value = value;
+        while (!nodes.isEmpty() && currentLevel <= height) {
+            int levelNodes = nodes.size();
+            printSpaces((int) Math.pow(2, height - currentLevel) - 1);
+
+            for (int i = 0; i < levelNodes; i++) {
+                Node current = nodes.poll();
+                if (current != null) {
+                    System.out.print(current.getValue());
+                    nodes.add(current.getLeft());
+                    nodes.add(current.getRight());
+                } else {
+                    System.out.print(" ");
+                    nodes.add(null);
+                    nodes.add(null);
+                }
+                if (i < levelNodes - 1) {
+                    printSpaces((int) Math.pow(2, height - currentLevel + 1) - 1);
+                }
+            }
+            System.out.println();
+            currentLevel++;
         }
     }
 
-    public void insert(int value) {
-        root = insertRecursive(root, value);
+    private int getTreeHeight(Node root) {
+        return (root == null) ? -1 : 1 + Math.max(getTreeHeight(root.getLeft()), getTreeHeight(root.getRight()));
     }
 
-    private TreeNode insertRecursive(TreeNode node, int value) {
-        if (node == null) {
-            return new TreeNode(value);
-        }
-        if (value < node.value) {
-            node.left = insertRecursive(node.left, value);
-        } else if (value > node.value) {
-            node.right = insertRecursive(node.right, value);
-        }
-        return node;
-    }
-
-    public void printInOrder() {
-        printInOrderRecursive(root);
-        System.out.println();
-    }
-
-    private void printInOrderRecursive(TreeNode node) {
-        if (node != null) {
-            printInOrderRecursive(node.left);
-            System.out.print(node.value + " ");
-            printInOrderRecursive(node.right);
+    private void printSpaces(int count) {
+        for (int i = 0; i < count; i++) {
+            System.out.print(" ");
         }
     }
 }
