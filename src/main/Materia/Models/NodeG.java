@@ -1,14 +1,26 @@
 package main.Materia.Models;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class NodeG {
-    int value;
-    List<NodeG> neighbors; 
+    private int value;
+    private List<NodeG> neighbors;
 
     public NodeG(int value) {
         this.value = value;
-        this.neighbors = new ArrayList<>();
+        this.neighbors = new LinkedList<>();
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public List<NodeG> getNeighbors() {
+        return neighbors;
+    }
+
+    public void addNeighbor(NodeG neighbor) {
+        this.neighbors.add(neighbor);
     }
 }

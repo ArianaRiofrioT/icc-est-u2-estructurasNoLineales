@@ -64,4 +64,9 @@ public class InsertBSTTest {
             System.out.print(" ");
         }
     }
+
+    public Node generateTree(int[] valoresArbol) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'generateTree'");
+    }
 }
